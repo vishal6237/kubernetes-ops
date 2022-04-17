@@ -26,7 +26,7 @@ terraform {
     organization = "vishal6237"
 
     workspaces {
-      name = "kubernetes-ops-staging-20-eks"
+      name = "kubernetes-ops-staging-10-vpc"
     }
   }
 }
