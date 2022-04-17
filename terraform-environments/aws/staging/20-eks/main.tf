@@ -26,7 +26,7 @@ terraform {
     organization = "vishal6237"
 
     workspaces {
-      name = "kubernetes-ops-staging-10-vpc"
+      name = "kubernetes-ops-staging-20-eks"
     }
   }
 }
@@ -41,7 +41,7 @@ data "terraform_remote_state" "vpc" {
     # Update to your Terraform Cloud organization
     organization = "vishal6237"
     workspaces = {
-      name = "kubernetes-ops-${local.environment_name}-20-eks"
+      name = "kubernetes-ops-${local.environment_name}-10-vpc"
     }
   }
 }
@@ -71,14 +71,14 @@ module "eks" {
   ]
 
   # private cluster - kubernetes API is internal the the VPC
-  cluster_endpoint_private_access                = true
+  cluster_endpoint_private_access = true
   # cluster_create_endpoint_private_access_sg_rule = true
- # cluster_endpoint_private_access_cidrs = [
- #   "10.0.0.0/8",
- #   "172.16.0.0/12",
- #   "192.168.0.0/16",
- #   "100.64.0.0/16",
- # ]
+  # cluster_endpoint_private_access_cidrs = [
+  #   "10.0.0.0/8",
+  #   "172.16.0.0/12",
+  #   "192.168.0.0/16",
+  #   "100.64.0.0/16",
+  # ]
 
   # Add whatever roles and users you want to access your cluster
   map_users = [
