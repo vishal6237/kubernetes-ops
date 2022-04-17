@@ -41,7 +41,7 @@ data "terraform_remote_state" "vpc" {
     # Update to your Terraform Cloud organization
     organization = "vishal6237"
     workspaces = {
-      name = "kubernetes-ops-${local.environment_name}-10-vpc"
+      name = "kubernetes-ops-${local.environment_name}-20-eks"
     }
   }
 }
