@@ -2,7 +2,7 @@ locals {
   aws_region       = "us-east-2"
   environment_name = "staging"
   tags = {
-    ops_env              = "${local.environment_name}"
+    ops_env              = local.environment_name
     ops_managed_by       = "terraform",
     ops_source_repo      = "kubernetes-ops",
     ops_source_repo_path = "terraform-environments/aws/${local.environment_name}/20-eks",
