@@ -72,13 +72,13 @@ module "eks" {
 
   # private cluster - kubernetes API is internal the the VPC
   cluster_endpoint_private_access                = true
-  cluster_create_endpoint_private_access_sg_rule = true
-  cluster_endpoint_private_access_cidrs = [
-    "10.0.0.0/8",
-    "172.16.0.0/12",
-    "192.168.0.0/16",
-    "100.64.0.0/16",
-  ]
+  # cluster_create_endpoint_private_access_sg_rule = true
+ # cluster_endpoint_private_access_cidrs = [
+ #   "10.0.0.0/8",
+ #   "172.16.0.0/12",
+ #   "192.168.0.0/16",
+ #   "100.64.0.0/16",
+ # ]
 
   # Add whatever roles and users you want to access your cluster
   map_users = [
@@ -89,7 +89,7 @@ module "eks" {
     },
   ]
 
-  node_groups = {
+  eks_managed_node_groups = {
     ng1 = {
       version          = "1.21"
       disk_size        = 20
