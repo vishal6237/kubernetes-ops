@@ -30,6 +30,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
+      - name: 'Download kubectl'
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod 755 kubectl
+          cp kubectl ${{ github.workspace }}/tmp_bin/kubectl
 
       - name: get parent directory and set matrix
         id: set-matrix
