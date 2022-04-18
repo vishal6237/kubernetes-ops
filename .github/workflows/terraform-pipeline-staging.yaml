@@ -37,7 +37,8 @@ jobs:
           chmod 755 kubectl
           ls -lrt
           pwd
-          cp kubectl ${{ github.workspace }}/kubectl
+          mkdir ${{ github.workspace }}/tmp_bin/
+          cp kubectl ${{ github.workspace }}/tmp_bin/kubectl
 
       - name: get parent directory and set matrix
         id: set-matrix
