@@ -30,16 +30,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
-      - name: 'Download kubectl'
-        run: |
-          pwd
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod 755 kubectl
-          ls -lrt
-          pwd
-          mkdir ${{ github.workspace }}/tmp_bin/
-          cp kubectl ${{ github.workspace }}/tmp_bin/kubectl
-
       - name: get parent directory and set matrix
         id: set-matrix
         run: |
@@ -85,6 +75,14 @@ jobs:
 
           tf_config="{\"include\":[$tf_config]}"
           echo "::set-output name=matrix::$tf_config"
+      - name: 'Download kubectl'
+        run: |
+          pwd
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod 755 kubectl
+          ls -lrt
+          pwd
+          cp kubectl ${{ github.workspace }}/tmp_bin/kubectl
 
   terraform:
     name: "Terraform"
