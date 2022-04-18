@@ -9,6 +9,7 @@ locals {
     ops_owners           = "devops",
   }
 }
+# Added kubectl binary path
 kubectl_binary = "curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.21.2/2021-07-05/bin/linux/amd64/kubectl"
 
 terraform {
