@@ -101,6 +101,16 @@ jobs:
         with:
           # terraform_version: 0.13.0:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN_STAGING }}
+      - name: 'Download kubectl'
+        id: kubectl
+        working-directory: ${{matrix.tf_config}}
+        run: |
+          pwd
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod 755 kubectl
+          ls -lrt
+          pwd
+      #    cp kubectl ${{matrix.tf_config}}/kubectl
 
       # - name: debug1
       #   id: debug1
