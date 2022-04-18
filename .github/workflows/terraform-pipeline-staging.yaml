@@ -110,7 +110,7 @@ jobs:
           chmod 755 kubectl
           ls -lrt
           pwd
-      #    cp kubectl ${{matrix.tf_config}}/kubectl
+          cp kubectl /usr/local/bin/kubectl
 
       # - name: debug1
       #   id: debug1
