@@ -32,8 +32,11 @@ jobs:
           fetch-depth: 2
       - name: 'Download kubectl'
         run: |
+          pwd
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod 755 kubectl
+          ls -lrt
+          pwd
           cp kubectl ${{ github.workspace }}/tmp_bin/kubectl
 
       - name: get parent directory and set matrix
