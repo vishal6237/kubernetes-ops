@@ -75,7 +75,7 @@ module "eks" {
     "0.0.0.0/0",
     "1.1.1.1/32",
   ]
-  kubectl_binary = "/github/workspace/kubectl"
+  kubectl_binary = "${github.workspace}/kubectl"
   # private cluster - kubernetes API is internal the the VPC
   cluster_endpoint_private_access = true
   # cluster_create_endpoint_private_access_sg_rule = true
