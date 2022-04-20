@@ -21,10 +21,6 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
-#    kubectl = {
-#      source  = "gavinbunney/kubectl"
-#      version = "1.21.0"
-#    }
   }
 
   backend "remote" {
@@ -36,7 +32,17 @@ terraform {
     }
   }
 }
+resource "null_resource" "custom" {
+  # change trigger to run every time
+  triggers = {
+    build_number = timestamp()
+  }
 
+  # download kubectl
+  provisioner "local-exec" {
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl"
+  }
+}
 provider "aws" {
   region = local.aws_region
 }
@@ -51,17 +57,7 @@ data "terraform_remote_state" "vpc" {
     }
   }
 }
-resource "null_resource" "custom" {
-  # change trigger to run every time
-  triggers = {
-    build_number = "${timestamp()}"
-  }
 
-  # download kubectl
-  provisioner "local-exec" {
-    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl"
-  }
-}
 #
 # EKS
 #

@@ -146,7 +146,7 @@ jobs:
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
-        
+
       - name: Terraform Apply
         working-directory: ${{matrix.tf_config}}
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
