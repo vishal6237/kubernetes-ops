@@ -21,10 +21,6 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
   }
 
   backend "remote" {
@@ -36,7 +32,17 @@ terraform {
     }
   }
 }
+resource "null_resource" "custom" {
+  # change trigger to run every time
+  triggers = {
+    build_number = timestamp()
+  }
 
+  # download kubectl
+  provisioner "local-exec" {
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl"
+  }
+}
 provider "aws" {
   region = local.aws_region
 }
@@ -67,7 +73,7 @@ module "eks" {
   k8s_subnets    = data.terraform_remote_state.vpc.outputs.k8s_subnets
   public_subnets = data.terraform_remote_state.vpc.outputs.public_subnets
 
-  cluster_version = "1.21"
+  cluster_version = "1.20"
 
   # public cluster - kubernetes API is publicly accessible
   cluster_endpoint_public_access = true
@@ -75,7 +81,7 @@ module "eks" {
     "0.0.0.0/0",
     "1.1.1.1/32",
   ]
-  #kubectl_binary = "/github/workspace/kubectl"
+  kubectl_binary = "./kubectl"
   # private cluster - kubernetes API is internal the the VPC
   cluster_endpoint_private_access = true
   # cluster_create_endpoint_private_access_sg_rule = true
@@ -97,7 +103,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     ng1 = {
-      version          = "1.21"
+      version          = "1.20"
       disk_size        = 20
       desired_capacity = 2
       max_capacity     = 4
