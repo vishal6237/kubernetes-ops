@@ -94,10 +94,12 @@ jobs:
           
       - name: 'Install Kubectl'
         uses: azure/setup-kubectl@v2.0
-#        with:
-#          version: '1.21' # default is latest stable
+        with:
+          version: '1.21' # default is latest stable
         id: install
-
+      - name: checking kbctl
+        run: |
+          kubectl
       # - name: debug1
       #   id: debug1
       #   working-directory: ${{matrix.tf_config}}
@@ -152,7 +154,10 @@ jobs:
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
-
+      - name: checking kubectl installed or not
+        run: |
+          kubectl
+          locate kubectl
       - name: Terraform Apply
         working-directory: ${{matrix.tf_config}}
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
