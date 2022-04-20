@@ -91,15 +91,7 @@ jobs:
         with:
           # terraform_version: 0.13.0:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN_STAGING }}
-          
-      - name: 'Install Kubectl'
-        uses: azure/setup-kubectl@v2.0
-#        with:
-#          version: '1.22' # default is latest stable
-        id: install
-#      - name: checking kbctl
-#        run: |
-#          kubectl version
+
       # - name: debug1
       #   id: debug1
       #   working-directory: ${{matrix.tf_config}}
@@ -154,9 +146,7 @@ jobs:
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
-      - name: checking kubectl installed or not
-        run: |
-          locate kubectl
+        
       - name: Terraform Apply
         working-directory: ${{matrix.tf_config}}
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
