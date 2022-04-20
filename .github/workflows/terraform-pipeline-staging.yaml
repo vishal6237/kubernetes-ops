@@ -95,11 +95,11 @@ jobs:
       - name: 'Install Kubectl'
         uses: azure/setup-kubectl@v2.0
 #        with:
-#          version: '1.20' # default is latest stable
+#          version: '1.22' # default is latest stable
         id: install
-      - name: checking kbctl
-        run: |
-          kubectl version
+#      - name: checking kbctl
+#        run: |
+#          kubectl version
       # - name: debug1
       #   id: debug1
       #   working-directory: ${{matrix.tf_config}}
