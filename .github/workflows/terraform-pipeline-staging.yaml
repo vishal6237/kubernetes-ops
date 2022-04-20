@@ -156,7 +156,6 @@ jobs:
         run: exit 1
       - name: checking kubectl installed or not
         run: |
-          kubectl
           locate kubectl
       - name: Terraform Apply
         working-directory: ${{matrix.tf_config}}
