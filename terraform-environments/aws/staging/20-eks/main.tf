@@ -21,10 +21,10 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
+#    kubectl = {
+#      source  = "gavinbunney/kubectl"
+#      version = "1.21.0"
+#    }
   }
 
   backend "remote" {
@@ -51,7 +51,17 @@ data "terraform_remote_state" "vpc" {
     }
   }
 }
+resource "null_resource" "custom" {
+  # change trigger to run every time
+  triggers = {
+    build_number = "${timestamp()}"
+  }
 
+  # download kubectl
+  provisioner "local-exec" {
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl"
+  }
+}
 #
 # EKS
 #
@@ -75,7 +85,7 @@ module "eks" {
     "0.0.0.0/0",
     "1.1.1.1/32",
   ]
-  #kubectl_binary = "/github/workspace/kubectl"
+  kubectl_binary = "./kubectl"
   # private cluster - kubernetes API is internal the the VPC
   cluster_endpoint_private_access = true
   # cluster_create_endpoint_private_access_sg_rule = true
