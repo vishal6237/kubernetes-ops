@@ -33,7 +33,7 @@ provider "aws" {
 }
 
 #
-# Route53 Hosted Zone
+# Route53 Hosted Zone this zone will be created
 #
 module "route53-hostedzone" {
   source = "github.com/ManagedKube/kubernetes-ops//terraform-modules/aws/route53/hosted-zone?ref=v2.0.15"
