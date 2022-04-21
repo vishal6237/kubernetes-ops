@@ -1,5 +1,5 @@
 locals {
-  aws_region  = "us-east-2"
+  aws_region  = "us-east-1"
   domain_name = "vishalstaging.k8s.dagar.net"
   tags = {
     ops_env              = "staging"
@@ -33,7 +33,7 @@ provider "aws" {
 }
 
 #
-# Route53 Hosted Zone
+# Route53 Hosted Zone this zone will be created again
 #
 module "route53-hostedzone" {
   source = "github.com/ManagedKube/kubernetes-ops//terraform-modules/aws/route53/hosted-zone?ref=v2.0.15"
