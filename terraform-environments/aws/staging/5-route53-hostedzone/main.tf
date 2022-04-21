@@ -1,5 +1,5 @@
 locals {
-  aws_region  = "us-east-2"
+  aws_region  = "us-east-1"
   domain_name = "vishalstaging.k8s.dagar.net"
   tags = {
     ops_env              = "staging"
