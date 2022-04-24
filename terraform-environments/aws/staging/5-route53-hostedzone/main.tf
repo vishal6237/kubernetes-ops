@@ -19,7 +19,7 @@ terraform {
   }
 
   backend "remote" {
-    # Update to your Terraform Cloud organization
+    # Update to your Terraform Cloud organization -- updated
     organization = "vishal6237"
 
     workspaces {
